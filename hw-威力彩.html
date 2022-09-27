@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // A 區 1~38 取 6 個數字
+        // B 區 1~8 取 1 個數字
+        const rand = (min, max) => {
+            return Math.round(Math.random() * (max - min) + min)
+        }
+        const A = []
+
+        // 方法一
+        for (let i = 0; i < 6; i++) {
+            const num = rand(1, 38)
+            if (A.includes(num)) i-- //與陣列中有重複的話，i--重跑一次迴圈
+            else A.push(num) //沒重複就把隨機數字放進 A 陣列裡
+        }
+
+        // 方法二
+        const all = []
+        // 建一個隨機數索引
+        for (i = 0; i <= 38; i++) all.push(i)
+
+        for (let i = 0; i < 6; i++) {
+            // 從索引中抽隨機數
+            const index = rand(0, all.length - 1)
+            // 取出對應數值放進 A 陣列
+            A.push(all[index])
+            // 抽過的索引值會踢出隨機數索引，就不會重複
+            all.splice(index, 1)
+        }
+
+        document.write(`A區為 ${A.join(' ')}<br>B區為 ${rand(1, 8)}`)
+    </script>
+</body>
+
+</html>
